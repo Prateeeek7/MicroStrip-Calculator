@@ -1,0 +1,20 @@
+/* Dual-tone off-white/black theme, sharp edges, minimal accent */
+:root {
+  --bg-primary: #f8f8f6;
+  --bg-secondary: #efefeb;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --border-color: #000000;
+  --border-width: 1px;
+  --accent: #4caf51;
+  --accent-hover: #43a047;
+  accent-color: var(--accent);
+  --patch-fill: #c2410c;
+  --substrate-fill: #e5e5e5;
+  --error: #991b1b;
+  --radius: 0;
+  --header-footer-bg: #36454f;
+  --header-footer-text: #e8e8e8;
+  --header-footer-muted: #b0b8bc;
+  --header-footer-border: #4a5a64;
+}
