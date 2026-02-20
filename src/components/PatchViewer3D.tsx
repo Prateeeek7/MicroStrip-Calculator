@@ -13,6 +13,10 @@ interface PatchViewer3DRectProps {
   L: number
   h: number
   y0?: number | null
+  /** Feed X offset from center in meters. */
+  feedXOffsetM?: number | null
+  /** Feed Y offset from center in meters. */
+  feedYOffsetM?: number | null
 }
 
 interface PatchViewer3DCircProps {
@@ -20,6 +24,8 @@ interface PatchViewer3DCircProps {
   a: number
   a_e: number
   h: number
+  feedXOffsetM?: number | null
+  feedYOffsetM?: number | null
 }
 
 type PatchViewer3DProps = PatchViewer3DRectProps | PatchViewer3DCircProps
@@ -83,7 +89,7 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
       // Substrate = larger base extending beyond patch on all sides
       const substrateGeom = new THREE.BoxGeometry(subW, hSub, subD)
       const substrateMat = new THREE.MeshStandardMaterial({
-        color: 0x8b7355,
+        color: 0xddb174,
         roughness: 0.9,
         metalness: 0,
       })
@@ -103,6 +109,20 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
       patch.name = 'patch'
       patch.position.y = hSub + tPatch / 2
       scene.add(patch)
+
+      // Feed position marker: only when user has entered at least one feed offset value
+      const hasFeed = props.feedXOffsetM != null || props.feedYOffsetM != null
+      if (hasFeed) {
+        const feedXM = props.feedXOffsetM ?? 0
+        const feedYM = props.feedYOffsetM ?? (props.y0 != null ? props.y0 - L / 2 : 0)
+        const feedSphere = new THREE.Mesh(
+          new THREE.SphereGeometry(Math.min(w, d) * 0.08, 16, 16),
+          new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.3, metalness: 0.9 })
+        )
+        feedSphere.position.set(feedXM * s, hSub + tPatch, feedYM * s)
+        feedSphere.name = 'feed'
+        scene.add(feedSphere)
+      }
     } else {
       const { a } = props
       const r = a * s
@@ -112,7 +132,7 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
       // Substrate = square base larger than circular patch
       const substrateGeom = new THREE.BoxGeometry(slabSize, hSub, slabSize)
       const substrateMat = new THREE.MeshStandardMaterial({
-        color: 0x8b7355,
+        color: 0xddb174,
         roughness: 0.9,
         metalness: 0,
       })
@@ -132,6 +152,20 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
       patch.name = 'patch'
       patch.position.y = hSub + tPatch / 2
       scene.add(patch)
+
+      // Feed position marker: only when user has entered at least one feed offset value
+      const hasFeed = props.feedXOffsetM != null || props.feedYOffsetM != null
+      if (hasFeed) {
+        const feedXM = props.feedXOffsetM ?? 0
+        const feedZM = props.feedYOffsetM ?? 0
+        const feedSphere = new THREE.Mesh(
+          new THREE.SphereGeometry(r * 0.12, 16, 16),
+          new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.3, metalness: 0.9 })
+        )
+        feedSphere.position.set(feedXM * s, hSub + tPatch, feedZM * s)
+        feedSphere.name = 'feed'
+        scene.add(feedSphere)
+      }
     }
 
     const dist = sceneSize * 1.6
@@ -173,6 +207,8 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
             const { a, a_e } = props
             showTooltip(`Patch (copper)\na = ${fmt(a)} mm — radius\na_e = ${fmt(a_e)} mm — effective radius`, e.clientX, e.clientY)
           }
+        } else if (name === 'feed') {
+          showTooltip('Feed point position', e.clientX, e.clientY)
         } else {
           hideTooltip()
         }
@@ -217,7 +253,12 @@ export function PatchViewer3D(props: PatchViewer3DProps) {
     (props as PatchViewer3DRectProps).W,
     (props as PatchViewer3DRectProps).L,
     props.h,
+    (props as PatchViewer3DRectProps).y0,
+    (props as PatchViewer3DRectProps).feedXOffsetM,
+    (props as PatchViewer3DRectProps).feedYOffsetM,
     (props as PatchViewer3DCircProps).a,
+    (props as PatchViewer3DCircProps).feedXOffsetM,
+    (props as PatchViewer3DCircProps).feedYOffsetM,
   ])
 
   return (

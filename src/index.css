@@ -5,11 +5,13 @@
 .app {
   min-height: 100vh;
   width: 100%;
-  max-width: none;
+  max-width: 100%;
+  min-width: 0;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .app-header {
@@ -286,4 +288,112 @@
 
 .footer-doc-panel .markdown-body a:hover {
   text-decoration: underline;
+}
+
+/* ========== Mobile responsive ========== */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.5rem 1rem;
+  }
+
+  .app-header-brand {
+    gap: 0.5rem;
+  }
+
+  .app-logo {
+    height: 32px;
+  }
+
+  .app-title,
+  .app-header h1 {
+    font-size: 1.1rem;
+    margin: 2px 0 0.25rem;
+  }
+
+  .patch-type-tabs {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .patch-type-tabs .tab {
+    flex: 1;
+    min-width: 120px;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .dashboard-panel {
+    padding: 1rem;
+  }
+
+  .calculator-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .mode-toggle {
+    padding: 0.5rem;
+  }
+
+  .mode-toggle .mode-label {
+    font-size: 0.875rem;
+  }
+
+  .input-panel {
+    padding: 0.75rem;
+  }
+
+  .footer-inner {
+    padding: 0 1rem;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .footer-right {
+    flex-wrap: wrap;
+  }
+
+  .footer-doc-link {
+    font-size: 0.875rem;
+  }
+
+  .footer-contact-link {
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .app-logo {
+    height: 28px;
+  }
+
+  .app-title,
+  .app-header h1 {
+    font-size: 0.95rem;
+  }
+
+  .patch-type-tabs .tab {
+    min-width: 100%;
+    min-height: 44px;
+    font-size: 0.8125rem;
+  }
+
+  .dashboard-panel {
+    padding: 0.75rem;
+  }
+
+  .calculator-section h2 {
+    font-size: 1rem;
+  }
 }

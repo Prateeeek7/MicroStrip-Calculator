@@ -14,6 +14,10 @@ export interface CircularPatchState {
   epsilonR: number
   height: number
   heightUnit: LengthUnit
+  /** Optional feed X offset from center in length unit (e.g. mm). Can be negative. */
+  feedXOffset: number | null
+  /** Optional feed Y offset from center in length unit. */
+  feedYOffset: number | null
 }
 
 const defaultState: CircularPatchState = {
@@ -24,6 +28,8 @@ const defaultState: CircularPatchState = {
   epsilonR: 4.4,
   height: 1.6,
   heightUnit: 'mm',
+  feedXOffset: null,
+  feedYOffset: null,
 }
 
 export function useCircularPatch() {

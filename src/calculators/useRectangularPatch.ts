@@ -15,6 +15,10 @@ export interface RectangularPatchState {
   epsilonR: number
   height: number
   heightUnit: LengthUnit
+  /** Optional feed X offset from center in length unit (e.g. mm). Can be negative. */
+  feedXOffset: number | null
+  /** Optional feed Y offset from center in length unit. Empty = use 50Ω y₀. */
+  feedYOffset: number | null
 }
 
 const defaultState: RectangularPatchState = {
@@ -26,6 +30,8 @@ const defaultState: RectangularPatchState = {
   epsilonR: 4.4,
   height: 1.6,
   heightUnit: 'mm',
+  feedXOffset: null,
+  feedYOffset: null,
 }
 
 export function useRectangularPatch() {

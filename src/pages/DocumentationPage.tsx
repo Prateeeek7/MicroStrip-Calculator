@@ -150,6 +150,13 @@ export function DocumentationPage() {
         </section>
 
         <section className="doc-section">
+          <h2>Feed (optional)</h2>
+          <p>
+            In the calculator, <strong>Feed</strong> is optional. Click <strong>Feed (optional)</strong> to show <strong>Feed X offset</strong> and <strong>Feed Y offset</strong> — distances from the patch center in the chosen length unit (e.g. mm). For a <strong>rectangular</strong> patch, the input impedance at the feed point follows <code>R_in(y) = R_in(0) cos²(πy/L)</code> along the length; the calculator shows <code>R_in(feed)</code> when you enter a Y offset. For a <strong>circular</strong> patch, the offset is used for the 3D feed marker only. If both offsets are left empty, no feed point is drawn in the 3D view.
+          </p>
+        </section>
+
+        <section className="doc-section">
           <h2>Circular microstrip patch (TM₁₁₀ᶻ)</h2>
           <p>
             The circular patch is designed for the <strong>dominant TM₁₁₀ᶻ mode</strong> (z normal to the patch). Substrate height <code>h</code> is much smaller than λ. Fringing makes the electrical size larger than the physical radius; the <strong>effective radius</strong> <code>a_e</code> accounts for this.
